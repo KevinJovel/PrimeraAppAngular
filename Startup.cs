@@ -62,6 +62,7 @@ namespace AngularApp
 
                 if (env.IsDevelopment())
                 {
+                    spa.Options.StartupTimeout = new System.TimeSpan(0, 0, 11, 59);
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
