@@ -12,6 +12,10 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 //registrar el componente creado
 import { ButtonAgregar } from './components/button/button.component';
 import { DiasSemana } from './components/diasSemana/dias.component';
+import { TablaProductoComponent } from './components/tabla-producto/tabla-producto.component';
+
+import { ProductoService } from './services/Producto.Service'
+import { HttpModule } from '@angular/http'
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,9 +24,11 @@ import { DiasSemana } from './components/diasSemana/dias.component';
     CounterComponent,
     FetchDataComponent,
     ButtonAgregar,
-    DiasSemana
+    DiasSemana,
+    TablaProductoComponent,
   ],
-  imports: [
+    imports: [
+    HttpModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -32,8 +38,8 @@ import { DiasSemana } from './components/diasSemana/dias.component';
         { path: 'fetch-data', component: FetchDataComponent },
         { path: 'dias-semana', component: DiasSemana }
     ])
-  ],
-  providers: [],
+    ],
+    providers: [ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

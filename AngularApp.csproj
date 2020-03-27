@@ -33,16 +33,13 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\components\button\button.component.ts" />
     <None Remove="ClientApp\src\app\components\diasSemana\dias.component.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\services\" />
-    <Folder Include="Clases\" />
+    <None Remove="ClientApp\src\app\services\Producto.Service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\components\button\button.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\components\diasSemana\dias.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\Producto.Service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
