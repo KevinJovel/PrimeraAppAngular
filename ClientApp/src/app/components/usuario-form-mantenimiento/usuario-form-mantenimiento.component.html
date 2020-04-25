@@ -1,0 +1,63 @@
+<h1>{{titulo}}</h1>
+<div class="row">
+  <div class="col-md-6">
+    <form [formGroup]="usuario" (ngSubmit)="guardarDatos()">
+      <div class="form-group">
+        <label>ID Usuario</label>
+        <input type="text" class="form-control" readonly formControlName="idUsuario" />
+      </div>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" formControlName="nombreUsiario" />
+      </div>
+      <div style="color:red" *ngIf="usuario.controls['nombreUsiario'].errors?.required">
+        El nombre del usuario es obligatorio
+      </div>
+      <div style="color:red" *ngIf="usuario.controls['nombreUsiario'].errors?.yaExiste">
+        EL usuario ya existe
+      </div>
+      <div class="form-group" *ngIf="ver==true">
+        <label>Contraseña</label>
+        <input type="password" class="form-control" formControlName="contra" />
+      </div>
+      <div style="color:red" *ngIf="usuario.controls['contra'].errors?.required">
+        La contraseña del usuario es obligatorio
+      </div>
+      <div class="form-group" *ngIf="ver==true">
+        <label>Repita Contraseña</label>
+        <input type="password" class="form-control" formControlName="contra2" />
+      </div>
+      <div style="color:red" *ngIf="usuario.controls['contra2'].errors?.required">
+        Por favor repita la contraseña
+      </div>
+      <div style="color:red" *ngIf="usuario.controls['contra2'].errors?.noiguales">
+        Asegurese que la contraseña sea igal
+      </div>
+      <div class="form-group" *ngIf="ver==true">
+        <label>Persona</label>
+        <select class="form-control" formControlName="idPersona">
+          <option value="">Seleccione</option>
+          <option *ngFor="let persona of personas" [value]="persona.idPersona">{{persona.nombreCompleto}}</option>
+        </select>
+      </div>
+      <div style="color:red" *ngIf="usuario.controls['idPersona'].errors?.required">
+        La persona es obligaoria
+      </div>
+      <div class="form-group">
+        <label>Tipo usuario</label>
+        <select class="form-control" formControlName="idTipoUsuario">
+          <option value="">Seleccione</option>
+          <option *ngFor="let tipo of tipoUsuarios" [value]="tipo.idTipoUsuario">{{tipo.nombre}}</option>
+        </select>
+      </div>
+      <div style="color:red" *ngIf="usuario.controls['idTipoUsuario'].errors?.required">
+        el tipo es obligatorio
+      </div>
+      <div class="form-group">
+        <input [disabled]="!usuario.valid" type="submit" class="btn btn-primary" value="Guardar" />
+        <button class="btn btn-default" [routerLink]="['/mantenimiento-usuario']">Regresar</button>
+      </div>
+    </form>
+  </div>
+</div>
+

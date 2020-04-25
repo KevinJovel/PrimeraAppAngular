@@ -18,18 +18,38 @@
               </a>
             </li>
             <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/counter"]' (click)='collapse()'>
+              <a [routerLink]='["/filtro"]' (click)='collapse()'>
                 <span class='glyphicon glyphicon-education'></span> Listado Producto
               </a>
             </li>
             <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Fetch data
+              <a [routerLink]='["/filtro-categoria"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Listado por Categoria
               </a>
             </li>
             <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/dias-semana"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Dias semana
+              <a [routerLink]='["/filtroNombreComleto"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Listado Persona
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/filtro-tipo"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Listado Usuario
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/mantenimiento-persona"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span>Mantenimiento Persona
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/mantenimiento-producto"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span>Mantenimiento Producto
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/mantenimiento-usuario"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span>Mantenimiento usuario
               </a>
             </li>
           </ul>

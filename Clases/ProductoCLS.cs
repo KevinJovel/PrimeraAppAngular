@@ -12,6 +12,8 @@ namespace AngularApp.Clases
         public decimal precio { get; set; }
         public int stock { get; set; }
         public string nombreCategoria { get; set; }
+        public int idMarca { get; set; }
+        public int idCategoria { get; set; }
 
     }
 }
