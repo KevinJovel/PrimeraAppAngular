@@ -15,6 +15,7 @@ namespace AngularApp.Models
         {
         }
 
+        public virtual DbSet<Cargos> Cargos { get; set; }
         public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<DetalleVentaReserva> DetalleVentaReserva { get; set; }
         public virtual DbSet<Marca> Marca { get; set; }
@@ -38,6 +39,17 @@ namespace AngularApp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Cargos>(entity =>
+            {
+                entity.HasKey(e => e.IdCargo);
+
+                entity.Property(e => e.IdCargo).ValueGeneratedNever();
+
+                entity.Property(e => e.Cargo)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Categoria>(entity =>
             {
                 entity.HasKey(e => e.Iidcategoria);

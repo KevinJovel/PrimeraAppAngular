@@ -26,14 +26,27 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Migrations\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Migrations\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\components\button\button.component.ts" />
     <None Remove="ClientApp\src\app\components\diasSemana\dias.component.ts" />
     <None Remove="ClientApp\src\app\services\Producto.Service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20200425191102_[initial].cs" />
+    <Compile Include="Migrations\20200425191102_[initial].Designer.cs" />
+    <Compile Include="Migrations\BDRestauranteContextModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>

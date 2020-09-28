@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { NgxPaginationModule } from 'ngx-pagination'
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -70,8 +70,8 @@ import { UsuarioFormMantenimientoComponent } from './components/usuario-form-man
   ],
     imports: [
     HttpModule,
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
+        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        HttpClientModule, NgxPaginationModule,
     FormsModule, ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
