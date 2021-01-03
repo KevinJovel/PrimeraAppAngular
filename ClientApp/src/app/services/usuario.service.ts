@@ -1,10 +1,11 @@
 import { Injectable,Inject } from '@angular/core';
 import { Http } from '@angular/http'
 import 'rxjs/add/operator/map'
+import { Router} from '@angular/router'
 @Injectable()
 export class UsuarioService {
-    urlBase:string="";
-    constructor(private http: Http, @Inject("BASE_URL") url: string) {
+  urlBase: string = "";
+  constructor(private http: Http, @Inject("BASE_URL") url: string, private router: Router) {
         this.urlBase = url;
     }
     public getUsuario() {
@@ -30,6 +31,42 @@ export class UsuarioService {
     public eliminarUsuario(idUsuario) {
         return this.http.get(this.urlBase + "api/Usuario/eliminarUsuario/" + idUsuario).map(res => res.json());
 
+  }
+  public login(usuario) {
+    return this.http.post(this.urlBase + "api/Usuario/login",usuario).map(res => res.json());
+
+  }
+  public obtenervariableSesion() {
+    return this.http.get(this.urlBase + "api/Usuario/validarSession").map(res => {
+      var data = res.json();
+      if (data.valor == "") {
+        this.router.navigate(["/pagina-error-login"]);
+        return false;
+      } else {
+        return true;
+      }
+
     }
-    
+
+    );
+
+  }
+  public obtenerSesion() {
+    return this.http.get(this.urlBase + "api/Usuario/validarSession").map(res => {
+      var data = res.json();
+      if (data.valor == "") {
+        return false;
+      } else {
+        return true;
+      }
+
+    }
+
+    );
+
+  }
+  public cerrarSesion() {
+    return this.http.get(this.urlBase + "api/Usuario/CerrarSesion").map(res => res.json());
+
+  }
 }

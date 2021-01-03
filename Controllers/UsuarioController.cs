@@ -1,13 +1,13 @@
-﻿using System;
+﻿using AngularApp.Clases;
+using AngularApp.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using AngularApp.Clases;
-using AngularApp.Models;
-using System.Transactions;
 using System.Security.Cryptography;
 using System.Text;
+using System.Transactions;
 
 namespace AngularApp.Controllers
 {
@@ -180,6 +180,69 @@ namespace AngularApp.Controllers
                                                  }).ToList();
                 return listaUsuario;
             }
+        }
+        [HttpPost]
+        [Route("api/Usuario/login")]
+        public UsuarioCLS login([FromBody] UsuarioCLS oUsuarioClS) {
+            int rpta = 0;
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+                UsuarioCLS oUsuario = new UsuarioCLS();
+                SHA256Managed sha = new SHA256Managed();
+                byte[] dataNoCifrada = Encoding.Default.GetBytes(oUsuarioClS.contra);
+                byte[] dataCifrada = sha.ComputeHash(dataNoCifrada);
+                string claveCifrada = BitConverter.ToString(dataCifrada).Replace("-", "");
+                rpta = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == oUsuarioClS.nombreUsiario.ToUpper() && p.Contra == claveCifrada).Count();
+                if (rpta == 1)
+                {
+                    Usuario ousuariorecuperar = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == oUsuarioClS.nombreUsiario.ToUpper() && p.Contra == claveCifrada).First();
+                    HttpContext.Session.SetString("usuario", oUsuarioClS.idUsuario.ToString());
+                    oUsuario.idUsuario = ousuariorecuperar.Iidusuario;
+                    oUsuario.nombreUsiario = ousuariorecuperar.Nombreusuario;
+                }
+                else
+                {
+                    oUsuario.idUsuario = 0;
+                    oUsuario.nombreUsiario = "";
+                }
+                return oUsuario;
+            }
+      }
+        
+   
+      
+
+       
+        [HttpGet]
+        [Route("api/Usuario/validarSession")]
+        public SeguridadCLS obtenervariableSession() {
+            SeguridadCLS oSeguridad = new SeguridadCLS();
+           string variableSession= HttpContext.Session.GetString("usuario");
+            if (variableSession == null)
+            {
+                oSeguridad.valor = "";
+            }
+            else {
+                oSeguridad.valor = variableSession;
+            }
+            return oSeguridad;
+        }
+       [HttpGet]
+       [Route("api/Usuario/CerrarSesion")]
+        public SeguridadCLS CerrarSesion() {
+            SeguridadCLS oSeguridadClS = new SeguridadCLS();
+            try
+            {
+                HttpContext.Session.Remove("usuario");
+                oSeguridadClS.valor = "Ok";
+
+            }
+            catch (Exception ex)
+            {
+                oSeguridadClS.valor = "";
+                throw;
+            }
+            return oSeguridadClS;
         }
     }
 }

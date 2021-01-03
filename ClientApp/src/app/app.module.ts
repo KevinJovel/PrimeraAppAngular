@@ -39,7 +39,11 @@ import { UsuarioService } from './services/usuario.service'
 import { HttpModule } from '@angular/http';
 import { MantenimientoUsuarioComponent } from './components/mantenimiento-usuario/mantenimiento-usuario.component';
 import { UsuarioFormMantenimientoComponent } from './components/usuario-form-mantenimiento/usuario-form-mantenimiento.component';
-
+import { LoginComponent } from './components/login/login.component';
+import { PaginaErrorLoginComponent } from './components/pagina-error-login/pagina-error-login.component';
+import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/permiso-error-pagina.component';
+import { SeguridadGuard } from './components/guards/seguridad.guard';
+import { ComponenteBienvenidaComponent } from './components/componente-bienvenida/componente-bienvenida.component'
 
 @NgModule({
   declarations: [
@@ -66,30 +70,38 @@ import { UsuarioFormMantenimientoComponent } from './components/usuario-form-man
         MantenimientoProductoComponent,
         ProductoFormMantenimientoComponent,
         MantenimientoUsuarioComponent,
-        UsuarioFormMantenimientoComponent
+        UsuarioFormMantenimientoComponent,
+        LoginComponent,
+        PaginaErrorLoginComponent,
+        PermisoErrorPaginaComponent,
+        ComponenteBienvenidaComponent
   ],
     imports: [
     HttpModule,
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
         HttpClientModule, NgxPaginationModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-        { path: 'fetch-data', component: FetchDataComponent },
-        { path: 'filtroNombreComleto', component: FiltradoPersonaNombreCompletoComponent },
-        { path: 'filtro-categoria', component: FiltradoProductoCategoriaComponent },
-        { path: 'filtro', component: FiltradoProductoNombreComponent },
+      RouterModule.forRoot([
+        { path: '', component: HomeComponent, pathMatch: 'full' },
+        { path: 'counter', component: CounterComponent, canActivate: [SeguridadGuard] },
+        { path: 'fetch-data', component: FetchDataComponent, canActivate: [SeguridadGuard] },
+        { path: 'filtroNombreComleto', component: FiltradoPersonaNombreCompletoComponent, canActivate: [SeguridadGuard] },
+        { path: 'filtro-categoria', component: FiltradoProductoCategoriaComponent, canActivate: [SeguridadGuard] },
+        { path: 'filtro', component: FiltradoProductoNombreComponent, canActivate: [SeguridadGuard]},
         { path: 'filtro-tipo', component: FiltradoUauarioTipoUsuarioComponent },
         { path: 'mantenimiento-persona', component: MantenimientoPersonaComponent },
         { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent },
         { path: 'mantenimiento-producto', component: MantenimientoProductoComponent },
         { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent },
         { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent },
-        { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent }
+      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'pagina-error-login', component: PaginaErrorLoginComponent },
+        { path: 'pagina-error-permiso', component: PermisoErrorPaginaComponent },
+        { path: 'componente-bienvenida', component: ComponenteBienvenidaComponent }
     ])
-    ],
-    providers: [ProductoService, CategoriaService, PersonaService, UsuarioService],
+  ],
+  providers: [ProductoService, CategoriaService, PersonaService, UsuarioService, SeguridadGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
