@@ -197,6 +197,7 @@ namespace AngularApp.Controllers
                 {
                     Usuario ousuariorecuperar = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == oUsuarioClS.nombreUsiario.ToUpper() && p.Contra == claveCifrada).First();
                     HttpContext.Session.SetString("usuario", oUsuarioClS.idUsuario.ToString());
+                    HttpContext.Session.SetString("tipoUsuario", ousuariorecuperar.Iidtipousuario.ToString());
                     oUsuario.idUsuario = ousuariorecuperar.Iidusuario;
                     oUsuario.nombreUsiario = ousuariorecuperar.Nombreusuario;
                 }
@@ -208,8 +209,33 @@ namespace AngularApp.Controllers
                 return oUsuario;
             }
       }
-        
-   
+        [HttpGet]
+        [Route("api/Usuario/listarPaginas")]
+        public List<PaginaCLS> ListarPaginas() {
+            List<PaginaCLS> listaPagina = new List<PaginaCLS>();
+            int idTipoUsuario = int.Parse( HttpContext.Session.GetString("tipoUsuario"));
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+                listaPagina = (from paginaTipo in bd.PaginaTipoUsuario
+                               join pagina in bd.Pagina
+                               on paginaTipo.Iidpagina equals pagina.Iidpagina
+                               where paginaTipo.Bhabilitado == 1
+                               && paginaTipo.Iidtipousuario == idTipoUsuario
+                               select new PaginaCLS
+                               {
+                                   iidPagina = pagina.Iidpagina,
+                                   accion = pagina.Accion,
+                                   mensaje = pagina.Mensaje,
+                                   bhabilitado = (int)pagina.Bhabilitado
+
+                               }).ToList();
+
+                return listaPagina;
+
+
+            }
+        }
+
       
 
        
@@ -223,8 +249,30 @@ namespace AngularApp.Controllers
                 oSeguridad.valor = "";
             }
             else {
+            
                 oSeguridad.valor = variableSession;
-            }
+                List<PaginaCLS> listaPagina = new List<PaginaCLS>();
+                int idUsuario = int.Parse(HttpContext.Session.GetString("usuario"));
+                int idTipoUsuario = int.Parse(HttpContext.Session.GetString("tipoUsuario"));
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    listaPagina = (from usuario in bd.Usuario
+                                   join tipoUsuario in bd.TipoUsuario
+                                   on usuario.Iidtipousuario equals
+                                   tipoUsuario.Iidtipousuario
+                                   join paginaTipo in bd.PaginaTipoUsuario
+                                   on usuario.Iidtipousuario equals paginaTipo.Iidtipousuario
+                                   join pagina in bd.Pagina
+                                   on paginaTipo.Iidpagina equals pagina.Iidpagina
+                                   where usuario.Iidusuario == idUsuario
+                                   && usuario.Iidtipousuario == idTipoUsuario
+                                   select new PaginaCLS
+                                   {
+                                       accion = pagina.Accion.Substring(1)
+                                   }).ToList();
+                    oSeguridad.lista = listaPagina;
+                }
+                }
             return oSeguridad;
         }
        [HttpGet]
@@ -234,6 +282,7 @@ namespace AngularApp.Controllers
             try
             {
                 HttpContext.Session.Remove("usuario");
+                HttpContext.Session.Remove("tipoUsuario");
                 oSeguridadClS.valor = "Ok";
 
             }

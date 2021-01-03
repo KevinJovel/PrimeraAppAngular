@@ -69,4 +69,8 @@ export class UsuarioService {
     return this.http.get(this.urlBase + "api/Usuario/CerrarSesion").map(res => res.json());
 
   }
+  public listarPaginas() {
+    return this.http.get(this.urlBase + "api/Usuario/listarPaginas").map(res => res.json());
+
+  }
 }

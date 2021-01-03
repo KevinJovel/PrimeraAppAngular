@@ -12,53 +12,58 @@
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
           <ul class='nav navbar-nav'>
-            <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-home'></span> Home
+                <span class='glyphicon glyphicon-education'></span> Home
               </a>
             </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/filtro"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-education'></span> Listado Producto
+            <li *ngFor="let menu of menus" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+              <a [routerLink]='[menu.accion]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-home'></span> {{menu.mensaje}}
               </a>
             </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/filtro-categoria"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Listado por Categoria
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/filtroNombreComleto"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Listado Persona
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/filtro-tipo"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Listado Usuario
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/mantenimiento-persona"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span>Mantenimiento Persona
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/mantenimiento-producto"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span>Mantenimiento Producto
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/mantenimiento-usuario"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span>Mantenimiento usuario
-              </a>
-            </li>
+            <!--<li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/filtro"]' (click)='collapse()'>
+      <span class='glyphicon glyphicon-education'></span> Listado Producto
+    </a>
+  </li>
+  <li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/filtro-categoria"]' (click)='collapse()'>
+      <span class='glyphicon glyphicon-th-list'></span> Listado por Categoria
+    </a>
+  </li>
+  <li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/filtroNombreComleto"]' (click)='collapse()'>
+      <span class='glyphicon glyphicon-th-list'></span> Listado Persona
+    </a>
+  </li>
+  <li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/filtro-tipo"]' (click)='collapse()'>
+      <span class='glyphicon glyphicon-th-list'></span> Listado Usuario
+    </a>
+  </li>
+  <li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/mantenimiento-persona"]' (click)='collapse()'>
+      <span class='glyphicon glyphicon-th-list'></span>Mantenimiento Persona
+    </a>
+  </li>
+  <li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/mantenimiento-producto"]' (click)='collapse()'>
+      <span class='glyphicon glyphicon-th-list'></span>Mantenimiento Producto
+    </a>
+  </li>
+  <li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/mantenimiento-usuario"]' (click)='collapse()'>
+      <span class='glyphicon glyphicon-th-list'></span>Mantenimiento usuario
+    </a>
+  </li>-->
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/login"]' (click)='collapse()' *ngIf="login==false">
                 <span class='glyphicon glyphicon-th-list'></span>login
               </a>
             </li>
             <li [routerLinkActive]='["link-active"]'>
-              <a  (click)='cerrarSesion()' *ngIf="login==true">
+              <a (click)='cerrarSesion()' *ngIf="login==true">
                 <span class='glyphicon glyphicon-th-list'></span>Cerrar Sesion
               </a>
             </li>
