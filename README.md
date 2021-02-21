@@ -10,7 +10,7 @@
 ### Clone the repo
 
 ```shell
-git clone https://github.com/KevinJovel/ASGARD-Frontend.git
+git clone https://github.com/KevinJovel/PrimeraAppAngular.git
 cd (carpeta de clonacion)
 ```
 
