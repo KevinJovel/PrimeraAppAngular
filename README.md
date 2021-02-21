@@ -5,11 +5,6 @@
 ## Desarrollador.
 * Kevin Alexander Jovel Arevalo [**LinkEdin**](https://www.linkedin.com/in/kevin-jovel/ "ver LinkedIn")
 
-
-## Docente Asesor
-* Rodrigo Ernesto Vasquez Escalante
-
-Este proyecto es propiedad de: **Universidad de El Salvador - UES**. 
 ## Get started
 
 ### Clone the repo
