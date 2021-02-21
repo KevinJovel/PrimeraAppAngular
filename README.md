@@ -21,7 +21,7 @@ using ASP.NET Core and EntityFramework Core.
 
 ## Prerequirements
 
-* Visual Studio 2017
+* Visual Studio 2019
 * .NET Core SDK
 * SQL Server
 
